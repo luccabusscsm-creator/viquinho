@@ -3,70 +3,177 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vingança</title>
+  <title>Download de Arquivos</title>
 
   <style>
-    body{
+    *{
       margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:linear-gradient(135deg,#111,#222);
       height:100vh;
       display:flex;
       justify-content:center;
       align-items:center;
-      background:linear-gradient(135deg,#000,#1a0000,#300000);
-      font-family:Arial, sans-serif;
       overflow:hidden;
+      color:white;
     }
 
-    .box{
+    .container{
       text-align:center;
-      background:rgba(0,0,0,0.8);
-      padding:50px;
+      background:rgba(255,255,255,0.08);
+      padding:40px;
       border-radius:20px;
-      box-shadow:0 0 25px red;
-      border:2px solid red;
+      backdrop-filter:blur(10px);
+      box-shadow:0 0 20px rgba(0,0,0,0.5);
+      width:420px;
     }
 
     h1{
-      color:red;
-      font-size:50px;
-      text-shadow:0 0 15px red;
-      margin-bottom:30px;
+      margin-bottom:20px;
+      font-size:32px;
+    }
+
+    p{
+      margin-bottom:25px;
+      opacity:0.8;
+    }
+
+    .botoes{
+      display:flex;
+      gap:15px;
+      justify-content:center;
+      flex-wrap:wrap;
     }
 
     button{
-      padding:20px 40px;
-      font-size:24px;
-      font-weight:bold;
+      padding:15px 25px;
       border:none;
-      border-radius:15px;
-      cursor:pointer;
-      background:red;
+      border-radius:12px;
+      background:#00bfff;
       color:white;
+      font-size:18px;
+      cursor:pointer;
       transition:0.3s;
-      box-shadow:0 0 20px red;
     }
 
     button:hover{
-      transform:scale(1.1);
-      background:darkred;
-      box-shadow:0 0 40px red;
+      transform:scale(1.05);
+      background:#0099cc;
+    }
+
+    .barra{
+      width:100%;
+      height:25px;
+      background:#333;
+      border-radius:20px;
+      overflow:hidden;
+      margin-top:25px;
+      display:none;
+    }
+
+    .progresso{
+      height:100%;
+      width:0%;
+      background:limegreen;
+      transition:width 0.2s;
+    }
+
+    .imagemTela{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:black;
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:9999;
+    }
+
+    .imagemTela img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
     }
   </style>
 </head>
 <body>
 
-  <div class="box">
-    <h1>VINGANÇA</h1>
+  <div class="container">
+    <h1>Central de Downloads</h1>
 
-    <button onclick="abrirArquivoX()">
-      ☠ Arquivo X ☠
-    </button>
+    <p>Escolha um arquivo para baixar.</p>
+
+    <div class="botoes">
+
+      <button onclick="baixarImagem()">
+        Download 1
+      </button>
+
+      <button onclick="abrirLink()">
+        Download 2
+      </button>
+
+    </div>
+
+    <div class="barra" id="barra">
+      <div class="progresso" id="progresso"></div>
+    </div>
+  </div>
+
+  <div class="imagemTela" id="imagemTela">
+    <img src="https://static.wixstatic.com/media/02fa5c_6df8999be7a94b9e9cc4fb31607aeba9~mv2.png/v1/fill/w_568,h_318,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/02fa5c_6df8999be7a94b9e9cc4fb31607aeba9~mv2.png">
   </div>
 
   <script>
-    function abrirArquivoX(){
-      window.location.href = "https://www.baixaki.com.br/apps/antivirus/trojan-killer/windows";
+
+    function baixarImagem(){
+
+      const barra = document.getElementById('barra');
+      const progresso = document.getElementById('progresso');
+      const imagemTela = document.getElementById('imagemTela');
+
+      barra.style.display = 'block';
+
+      let porcentagem = 0;
+
+      const intervalo = setInterval(() => {
+
+        porcentagem += 2;
+
+        progresso.style.width = porcentagem + '%';
+
+        if(porcentagem >= 100){
+
+          clearInterval(intervalo);
+
+          setTimeout(() => {
+
+            imagemTela.style.display = 'flex';
+
+            if(document.documentElement.requestFullscreen){
+              document.documentElement.requestFullscreen();
+            }
+
+          }, 500);
+        }
+
+      }, 80);
     }
+
+    function abrirLink(){
+
+      window.location.href =
+      "https://trojankiller.br.uptodown.com/windows";
+
+    }
+
   </script>
 
 </body>
